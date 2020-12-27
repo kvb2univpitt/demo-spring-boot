@@ -1,1 +1,1 @@
-# secured-webapp
+# spring-boot-demo
