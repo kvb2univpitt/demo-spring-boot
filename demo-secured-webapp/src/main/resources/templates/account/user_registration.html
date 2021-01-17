@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>User Registration</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link rel="stylesheet" href="../../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" />
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light bg-white border-bottom shadow-sm">
+            <a class="navbar-brand" href="#" th:href="@{/}">
+                <h5 class="my-0 mr-md-auto font-weight-normal" th:text="${@environment.getProperty('app.title')}">Application Title</h5>
+            </a>
+        </nav>
+        <div class="container">
+            <div class="row justify-content-center px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+                <div class="col-lg-7">
+                    <div class="card shadow-sm rounded-sm mt-5">
+                        <div class="card-header">
+                            <h3 class="text-center font-weight-light my-1">Create Account</h3>
+                        </div>
+                        <div class="card-body">
+                            <div th:if="${errorMsg}" class="alert alert-danger" role="alert">
+                                <div th:each="msg : ${errorMsg}" th:text="${msg}"></div>
+                            </div>
+                            <form id="userRegForm" role="form" method="post" action="" th:object="${userRegistrationForm}">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="inputUsername">Username (required, at least 4 characters, maximum 10 characters)</label>
+                                    <input type="text" name="username" th:field="*{username}" id="inputUsername" class="form-control py-4" th:class="${#fields.hasErrors('username')} ? 'form-control py-4 is-invalid' : 'form-control py-4'" />
+                                    <span th:if="${#fields.hasErrors('username')}" th:class="invalid-feedback" th:errors="*{username}">Please enter a valid username.</span>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="inputPassword">Password</label>
+                                            <input type="password" name="password" th:field="*{password}" id="inputPassword" class="form-control py-4" th:class="${#fields.hasErrors('password')} ? 'form-control py-4 is-invalid' : 'form-control py-4'" />
+                                            <span th:if="${#fields.hasErrors('password')}" th:class="invalid-feedback" th:errors="*{password}">Please enter a valid password.</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="inputConfirmPassword">Confirm Password</label>
+                                            <input type="password" name="confirmPassword" th:field="*{confirmPassword}" id="inputConfirmPassword" class="form-control py-4" th:class="${#fields.hasErrors('confirmPassword')} ? 'form-control py-4 is-invalid' : 'form-control py-4'" />
+                                            <span th:if="${#fields.hasErrors('confirmPassword')}" th:class="invalid-feedback" th:errors="*{confirmPassword}">Please re-enter password.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="inputFirstName">First Name</label>
+                                            <input class="form-control py-4" id="inputFirstName" type="text" th:field="*{firstName}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="inputLastName">Last Name</label>
+                                            <input class="form-control py-4" id="inputLastName" type="text" th:field="*{lastName}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" id="register" class="btn btn-block btn-lg btn-primary mt-4" value="Register Account" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../../static/vendor/jquery/jquery.slim.min.js" th:src="@{/vendor/jquery/jquery.slim.min.js}"></script>
+    </body>
+</html>

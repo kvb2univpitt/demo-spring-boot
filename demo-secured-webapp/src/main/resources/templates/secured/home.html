@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title th:text="${@environment.getProperty('app.title')}">Home</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link rel="stylesheet" href="../../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" />
+        <link rel="stylesheet" href="../../static/vendor/fontawesome/css/all.min.css" th:href="@{/vendor/fontawesome/css/all.min.css}" />
+    </head>
+    <body>
+        <nav class="navbar navbar-expand navbar-light bg-light bg-white border-bottom shadow-sm">
+            <a class="navbar-brand" href="#" th:href="@{/}" th:text="${@environment.getProperty('app.title')}">App Title</a>
+            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+            <div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></div>
+            <ul class="navbar-nav ml-auto ml-md-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="#">Activity Log</a>
+                        <div class="dropdown-divider"></div>
+                        <form th:action="@{/logout}" method="post">
+                            <input type="submit" value="Sign Out" class="dropdown-item" />
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <main class="container">
+            <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                <h1 class="display-4">Welcome</h1>
+                <p>Spring Security Thymeleaf tutorial</p>
+                <div sec:authorize="hasRole('USER')">Text visible to user.</div>
+                <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
+                <div sec:authorize="isAuthenticated()">
+                    Text visible only to authenticated users.
+                </div>
+                Authenticated username:
+                <div sec:authentication="name"></div>
+                Authenticated user roles:
+                <div sec:authentication="principal.authorities"></div>
+            </div>
+        </main>
+        <script src="../../static/vendor/jquery/jquery.slim.min.js" th:src="@{/vendor/jquery/jquery.slim.min.js}"></script>
+        <script src="../../static/vendor/bootstrap/js/bootstrap.min.js" th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+    </body>
+</html>
